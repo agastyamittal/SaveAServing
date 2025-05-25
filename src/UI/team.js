@@ -1,4 +1,4 @@
-import NavBar from './NavBar_bfs';
+import NavBar from './mainnavbar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import * as React from 'react';
@@ -21,12 +21,7 @@ function team(){
     return (
         <>
         <NavBar/>
-        <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
-        <Button component={Link} to="/teamsignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">Register your team</Button>
-        </Box>
-        <Typography align = "center" variant = "h5" sx={{fontWeight: "600"}} marginTop = "50px">What is a team?</Typography>
-        <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
-        </Box>
+        <Typography align = "center" variant = "h2" sx={{fontWeight: "400"}} marginTop = "80px">COMING SOON</Typography>
         </>
     );
 }

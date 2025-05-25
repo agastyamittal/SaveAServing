@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 function SignUp({tableName}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [address, setAddress] = useState('')
+  const [zip, setZip] = useState('')
+  const [house, setHouse] = useState('')
+  const [street, setStreet] = useState('')
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [phone, setPhone] = useState('')
   const navigate = useNavigate()
 
-  
 
   const handleSignUp = async (e) => {
     e.preventDefault()
@@ -23,15 +24,45 @@ function SignUp({tableName}) {
       setMessage(error.message)
     }
     else{
-      setMessage('Sign-up successful! Check your email for confirmation.')
-      const profileData = {
-        email: document.getElementById('emailInput').value,
-        name: document.getElementById('nameInput').value,
-        address: document.getElementById('addressInput').value,
-        phone: document.getElementById('phoneInput').value,
+      
+
+      if(tableName === "business_info"){
+        const profileData = {
+          b_email: email,
+          b_name: name,
+          b_zip_code: zip,
+          b_house_number: house,
+          b_street_name: street,
+          b_phone: phone,
+        }
+          const { data, error } = await sas_db.from(tableName).insert([profileData])
+        
       }
-      const { data, error } = await sas_db.from(tableName).insert([profileData])
-      if(tableName === "businessinfo"){
+      else if(tableName === "donation_center_info"){
+        const profileData = {
+          d_email: email,
+          d_name: name,
+          d_zip_code: zip,
+          d_house_number: house,
+          d_street_name: street,
+          d_phone: phone,
+        }
+          const { data, error } = await sas_db.from(tableName).insert([profileData])
+        
+      }
+      else if(tableName === "volunteer_info"){
+        const profileData = {
+          v_email: email,
+          v_name: name,
+          v_zip_code: zip,
+          v_house_number: house,
+          v_street_name: street,
+          v_phone: phone,
+        }
+        const { data, error } = await sas_db.from(tableName).insert([profileData])
+      }
+      localStorage.setItem('userEmail', email)
+      if(tableName === "business_info"){
         navigate('/bdash')
       }
       else if(tableName === "donation_center_info"){
@@ -40,9 +71,6 @@ function SignUp({tableName}) {
       else if(tableName === "volunteer_info"){
         navigate('/volunteerdash')
       }
-      // else if(tableName === "team_info"){
-      //   navigate('/teamdash')
-      // }
     }
   }
 
@@ -51,7 +79,9 @@ function SignUp({tableName}) {
       <h2>Sign Up</h2>
       <input id="emailInput" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
       <input id="passwordInput" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
-      <input id="addressInput" type="address" placeholder="Address" onChange={(e) => setAddress(e.target.value)} required />
+      <input id="zipInput" type="address" placeholder="Zip Code" onChange={(e) => setZip(e.target.value)} required />
+      <input id="houseInput" type="address" placeholder="House Number" onChange={(e) => setHouse(e.target.value)} required />
+      <input id="streetInput" type="address" placeholder="Street Name" onChange={(e) => setStreet(e.target.value)} required />
       <input id="nameInput" type="name" placeholder="Name of Business" onChange={(e) => setName(e.target.value)} required />
       <input id="phoneInput" type="phone" placeholder="Phone" onChange={(e) => setName(e.target.value)} required />
       <button type="submit">Sign Up</button>

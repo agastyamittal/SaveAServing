@@ -17,6 +17,7 @@ function AuthStatus() {
     const { data: authListener } = sas_db.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user ?? null)
+
       }
     )
 
@@ -25,6 +26,7 @@ function AuthStatus() {
 
   const handleLogout = async () => {
     await sas_db.auth.signOut()
+    localStorage.removeItem('userEmail')
     setUser(null)
   }
 

@@ -1,4 +1,4 @@
-import NavBar from './NavBar_bfs';
+import NavBar from './mainnavbar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import * as React from 'react';

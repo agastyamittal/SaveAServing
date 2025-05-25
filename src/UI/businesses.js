@@ -1,32 +1,24 @@
-import NavBar from './NavBar_bfs';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import NavBar from './mainnavbar';
 
-function businesses(){
+function businesses() {
     return (
         <>
-        <NavBar/>
-        <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
-        <Button component={Link} to="/bsignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">Add Your Business</Button>
-        </Box>
-        <Typography align = "center" variant = "h5" sx={{fontWeight: "600"}} marginTop = "50px">How SaveAServing helps your business</Typography>
-        <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
-        </Box>
+            <NavBar />
+            <Box marginTop="75px" alignItems="center" justifyContent="center" display="flex">
+                <Button component={Link} to="/bsignup" style={{ color: "white", borderRadius: 5, backgroundColor: "#024abf" }} variant="contained">Add Your Business</Button>
+            </Box>
+            <Typography align="center" variant="h5" sx={{ fontWeight: "600" }} marginTop="50px">How SaveAServing helps your business</Typography>
+            <Box marginTop="75px" alignItems="center" justifyContent="center" display="flex" flexDirection="column" sx={{ maxWidth: "800px", mx: "auto", px: 3 }}>
+                <Typography align="center" variant="h6" sx={{ fontWeight: "400" }}></Typography>
+                    SaveAServing uses advanced AI technology to predict your restaurant's food demand with precision. Our intelligent system analyzes historical data and current trends to help you make informed decisions about food preparation.
+                <Typography align="center" variant="h6" sx={{ fontWeight: "400" }} marginTop="20px">
+                    With our user-friendly interface, you can easily track, manage, and optimize your food inventory. This helps reduce food waste significantly and cuts down operational costs, leading to better profit margins and a more sustainable business model.
+                </Typography>
+            </Box>
         </>
     );
 }

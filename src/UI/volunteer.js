@@ -1,23 +1,21 @@
-import NavBar from './NavBar_bfs';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import NavBar from './mainnavbar';
 
 function volunteer(){
+
+    const notificationTest = () => {
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                new Notification('Hello! This is a test notification.');
+            } else {
+                console.log('Notification permission denied');
+            }
+        });
+    }
+
     return (
         <>
         <NavBar/>
@@ -26,6 +24,13 @@ function volunteer(){
         </Box>
         <Typography align = "center" variant = "h5" sx={{fontWeight: "600"}} marginTop = "50px">What do volunteers do?</Typography>
         <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
+            <Typography align = "center" variant = "h6" sx={{fontWeight: "400"}} marginTop = "20px">
+                Volunteers play a crucial role in SaveAServing by transporting food from restaurants to donation centers. By signing up as a volunteer, you can help reduce food waste and ensure that surplus food reaches those in need in your community.
+            </Typography>
+            
+        </Box>
+        <Box marginTop = "75px" alignItems = "center" justifyContent = "center" display = "flex">
+            <Button onClick={notificationTest}>Notification!</Button>
         </Box>
         </>
     );

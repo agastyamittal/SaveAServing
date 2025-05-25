@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { sas_db } from '../DB/dbClient'
 import { useNavigate } from 'react-router-dom'
 
-function Login({redirectRoute}) {
+function Login({ redirectRoute }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -14,13 +14,14 @@ function Login({redirectRoute}) {
       email,
       password,
     })
-
-    if (error){ 
+    localStorage.removeItem('userEmail')
+    localStorage.setItem('userEmail', email)
+    if (error) {
       setMessage(error.message)
     }
-    else{
+    else {
       setMessage('Logged in successfully!')
-     navigate(redirectRoute)
+      navigate(redirectRoute)
     }
   }
 
