@@ -12,6 +12,18 @@ import NavBarBusiness from './NavBarBusiness';
 function Doncendash() {
     const [notifications, setNotifications] = useState([]);
     const [centerName, setCenterName] = useState('');
+      const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+const region = ""; 
+const accessKeyId = "";
+const secretAccessKey = "";
+
+const sesClient = new SESClient({
+  region: region,
+  credentials: {
+    accessKeyId: accessKeyId,
+    secretAccessKey: secretAccessKey,
+  },
+});
 
     const fetchNotifications = async () => {
         console.log('Fetching notifications...');
@@ -66,6 +78,36 @@ function Doncendash() {
                     b_id: businessData.b_id,
                 };
                 await sas_db.from('volunteer_notifications').insert([notification]);
+
+                async function sendEmail() {
+                  console.log(
+                    "sendEmail() called"
+                  );
+                  const params = {
+                    Source: "",
+                    Destination: {
+                      ToAddresses: [""],
+                    },
+                    Message: {
+                      Subject: {
+                        Data: "",
+                      },
+                      Body: {
+                        Text: {
+                          Data: "",
+                        },
+                      },
+                    },
+                  };
+                
+                  const command = new SendEmailCommand(params);
+                  try {
+                    const response = await sesClient.send(command);
+                    console.log("Email sent successfully:", response);
+                  } catch (error) {
+                    console.error("Error sending email:", error);
+                  }
+                }
             }
         }
 
@@ -89,10 +131,11 @@ function Doncendash() {
                 <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>
                     {centerName} Dashboard
                 </Typography>
+            <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3}}>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
-                        <Paper sx={{ p: 2 }}>
+                        <Paper sx={{ p: 2, minHeight:"266px", minWidth: "210px" }}>
                             <Typography variant="h6" sx={{ mb: 2 }}>
                                 Pending Donations
                             </Typography>
@@ -116,7 +159,7 @@ function Doncendash() {
                                             <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
                                                 <Button
                                                     variant="contained"
-                                                    color="primary"
+                                                    sx={{backgroundColor: "#A5C6B4"}}
                                                     onClick={() => handleAcknowledge(notif.n_id, true)}
                                                 >
                                                     Accept
@@ -136,7 +179,7 @@ function Doncendash() {
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <Paper sx={{ p: 2 }}>
+                        <Paper sx={{ p: 2, minHeight:"266px", minWidth: "210px" }}>
                             <Typography variant="h6" sx={{ mb: 2 }}>
                                 Accepted Donations
                             </Typography>
@@ -160,6 +203,7 @@ function Doncendash() {
                                             <Box sx={{ mt: 2 }}>
                                                 <Button
                                                     variant="outlined"
+                                                    color="error"
                                                     onClick={() => handleAcknowledge(notif.n_id, false)}
                                                 >
                                                     Cancel Acceptance
@@ -171,6 +215,7 @@ function Doncendash() {
                         </Paper>
                     </Grid>
                 </Grid>
+            </Box>
             </Box>
         </>
     );

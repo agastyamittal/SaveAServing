@@ -53,36 +53,6 @@ const sesClient = new SESClient({
   },
 });
 
-async function sendEmail() {
-  console.log(
-    "sendEmail() called"
-  );
-  const params = {
-    Source: "",
-    Destination: {
-      ToAddresses: [""],
-    },
-    Message: {
-      Subject: {
-        Data: "",
-      },
-      Body: {
-        Text: {
-          Data: "",
-        },
-      },
-    },
-  };
-
-  const command = new SendEmailCommand(params);
-  try {
-    const response = await sesClient.send(command);
-    console.log("Email sent successfully:", response);
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
-}
-
   const startMenuItems = async () => {
     const userEmail = localStorage.getItem('userEmail');
     const { data, error2 } = await sas_db.from('business_info').select('b_id').eq('b_email', userEmail).single();
@@ -233,6 +203,35 @@ async function sendEmail() {
     }
 
     setOrderList([]);
+    async function sendEmail() {
+  console.log(
+    "sendEmail() called"
+  );
+  const params = {
+    Source: "",
+    Destination: {
+      ToAddresses: [""],
+    },
+    Message: {
+      Subject: {
+        Data: "",
+      },
+      Body: {
+        Text: {
+          Data: "",
+        },
+      },
+    },
+  };
+
+  const command = new SendEmailCommand(params);
+  try {
+    const response = await sesClient.send(command);
+    console.log("Email sent successfully:", response);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+}
   };
 
 
@@ -354,6 +353,7 @@ const sendOrderData = async (orderPredItem) => {
         <Typography 
           variant="h3" 
           sx={{ 
+            paddingTop: "35px",
             fontWeight: "600",
             textAlign: "center",
             marginBottom: "2rem"
@@ -361,7 +361,10 @@ const sendOrderData = async (orderPredItem) => {
         >
           {businessName} Dashboard
         </Typography>
-        <div className="dashboard-card">          
+            <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2}}>
+
+        <div className="dashboard-card">   
+                 
           <Typography 
             variant="h5" 
             sx={{ 
@@ -372,8 +375,7 @@ const sendOrderData = async (orderPredItem) => {
           >
             Order Prediction
           </Typography>
-          
-          <FormControl fullWidth sx={{ mb: 2 }}>
+          <FormControl fullWidth sx={{ mb: 2, minWidth: "1000px" }}>
             <InputLabel>Select Menu Item for Prediction</InputLabel>
             <Select
               value={orderPredictionItem}
@@ -390,8 +392,8 @@ const sendOrderData = async (orderPredItem) => {
               ))}
             </Select>
           </FormControl>
-
           {forecast.length > 0 && (
+            <Box sx={{minWidth: "1000px"}}>
             <LineChart
               xAxis={[{ data: [1, 2, 3, 4, 5, 6] }]}
               series={[
@@ -408,18 +410,19 @@ const sendOrderData = async (orderPredItem) => {
                 }
               }}
             />
+            </Box>
           )}
           
         </div>
-        
+       </Box>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 3 }}>
-          <Button variant="contained" onClick={handleEditMenuOpenDialog}>
+          <Button variant="contained"sx={{backgroundColor: "#D1B24C"}} onClick={handleEditMenuOpenDialog}>
             Edit Menu Items
           </Button>
-          <Button variant="contained" onClick={handleOpenAddOrderDialog}>
+          <Button variant="contained" sx={{backgroundColor: "#D1B24C"}}onClick={handleOpenAddOrderDialog}>
             Add Orders
           </Button>
-          <Button variant="contained" onClick={handleOpenStartDonationDialog}>
+          <Button variant="contained" sx={{backgroundColor: "#D1B24C"}}onClick={handleOpenStartDonationDialog}>
             Notify Donation Center
           </Button>
         </Box>
@@ -457,18 +460,18 @@ const sendOrderData = async (orderPredItem) => {
               <Button
                 variant="contained"
                 onClick={handleAddMenuItem}
-                sx={{ minWidth: '120px', maxHeight: '55px' }}
+                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C"}}
               >
                 Add Item
               </Button>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => {
+            <Button sx={{color: "#D1B24C"}} onClick={() => {
               handleCloseEditMenuDialog(); setNewMenuItemsTemp([]);
               setNewMenuItems('');
             }}>Cancel</Button>
-            <Button
+            <Button sx={{backgroundColor: "#D1B24C"}}
               onClick={() => {
                 handleConfirmEdits();
                 handleCloseEditMenuDialog();
@@ -514,15 +517,15 @@ const sendOrderData = async (orderPredItem) => {
               <Button
                 variant="contained"
                 onClick={handleAddToOrderList}
-                sx={{ minWidth: '120px', maxHeight: '55px' }}
+                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C"}}
               >
                 Add Order
               </Button>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseAddOrderDialog}>Cancel</Button>
-            <Button
+            <Button sx={{color: "#D1B24C"}} onClick={handleCloseAddOrderDialog}>Cancel</Button>
+            <Button sx={{backgroundColor: "#D1B24C"}}
               onClick={() => {
                 handleOrderSubmit();
                 fetchChartData();
@@ -541,8 +544,9 @@ const sendOrderData = async (orderPredItem) => {
         <Dialog open={openStartDonationDialog} onClose={handleCloseStartDonationDialog} maxWidth="sm" fullWidth>
           <DialogTitle>Start Donation Event</DialogTitle>
           <DialogContent>
-
+<Box paddingTop="15px">
             <TextField
+            
               fullWidth
               label="Donation Event Name"
               id="donationEventName"
@@ -551,7 +555,7 @@ const sendOrderData = async (orderPredItem) => {
               variant="outlined"
               type="text"
             />
-
+</Box>
             <FormControl fullWidth sx={{ mb: 2, mt: 1 }}>
               <InputLabel>Select Menu Item</InputLabel>
               <Select
@@ -610,7 +614,7 @@ const sendOrderData = async (orderPredItem) => {
 
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseStartDonationDialog}>Cancel</Button>
+            <Button sx={{color: "#D1B24C"}} onClick={handleCloseStartDonationDialog}>Cancel</Button>
             <Button
               onClick={() => {
                 setDonationList([...donationList, { item: donationItem, quantity: parseInt(donationQ) }]);
@@ -621,7 +625,7 @@ const sendOrderData = async (orderPredItem) => {
                 setDonationEventName('');
               }}
               variant="contained"
-              sx={{ color: 'white' }}
+              sx={{backgroundColor: "#D1B24C"}}
               disabled={selectedCenters.length === 0}
             >
               Notify Donation Centers
@@ -631,7 +635,8 @@ const sendOrderData = async (orderPredItem) => {
 
 
  <div className="dashboard-card" style={{ marginTop: '1.5rem' }}>
-     
+      <Box marginTop="25px" marginBottom="30px" alignItems="center" justifyContent="center" display="flex" sx={{flexDirection:"column", width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2}}>
+
         <Box sx={{
           p: 3,
           m: 2,
@@ -650,7 +655,9 @@ const sendOrderData = async (orderPredItem) => {
 
 
         </Box>
+      
         {Object.keys(chartData).length > 0 && (
+          <Box sx={{minWidth: "1000px"}}>
           <LineChart
             xAxis={[{
               data: [...new Set(Object.values(chartData).flatMap(item => Object.keys(item)))].sort(),
@@ -665,12 +672,11 @@ const sendOrderData = async (orderPredItem) => {
             }))}
             height={300}
           />
+          </Box>
         )}
+        </Box>
    </div>
       </div>
-      {forecast.length > 0 && (
-        <h5>{!isNaN(Number(forecast[2].Forecast)) ? Number(forecast[2].Forecast).toFixed(2) : 'N/A'}</h5>
-      )}
 
 
     </>

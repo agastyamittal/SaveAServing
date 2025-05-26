@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sas_db } from '../DB/dbClient'
 import { useNavigate } from 'react-router-dom'
+import Box from '@mui/material/Box';
 
 function Login({ redirectRoute }) {
   const [email, setEmail] = useState('')
@@ -26,13 +27,17 @@ function Login({ redirectRoute }) {
   }
 
   return (
+    <Box marginTop="75px" alignItems="center" justifyContent="center" display="flex" sx={{ maxWidth: "800px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2}}>
     <form onSubmit={handleLogin}>
-      <h2>Login</h2>
+      <h4>Enter your Email and Password</h4>
+      
       <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
       <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
       <button type="submit">Login</button>
       <p>{message}</p>
+      
     </form>
+    </Box>
   )
 }
 

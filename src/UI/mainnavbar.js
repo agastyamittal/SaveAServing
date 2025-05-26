@@ -33,16 +33,16 @@ function NavBar_bfs() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#123456' }}>
+    <AppBar position="static" style={{ backgroundColor: '#333333', color: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={Image} alt='img' style={{ width: '70px', height: '70px' }} />
+          <img src={Image} alt='img' style={{ width: '45px', height: '45px', paddingRight: "10px"}} />
           <Typography
             variant="h6"
             noWrap
             component={Link} to="/"
             sx={{
-              mr: 2,
+              mr: 0,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'arial',
               fontSize: '25px',
@@ -54,10 +54,12 @@ function NavBar_bfs() {
           >
             SaveAServing
           </Typography>
-          <Box margin="auto" alignItems="center" justifyContent="center" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>            <Button component={Link} to="/businesses" className="btn btn-text" variant="text">Businesses</Button>
-            <Button component={Link} to="/doncen" className="btn btn-text" variant="text">Donation Center</Button>
+          <Box margin="auto" alignItems="center" justifyContent="center" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>            
+            <Button component={Link} to="/businesses" className="btn btn-text"  color= "inherit" variant="text">Business</Button>
+            <Button component={Link} to="/doncen" className="btn btn-text" color= "inherit" variant="text">Donation Center</Button>
             <Button
-              color="#000000"
+              className="btn btn-text"
+              color= "inherit"
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
@@ -79,7 +81,8 @@ function NavBar_bfs() {
               <MenuItem component={Link} to="/team" onClick={handleClose}>Team up to reduce waste</MenuItem>
             </Menu>
             <Button
-              color="#000000"
+              className="btn btn-text"
+              color= "inherit"
               id="basic-button"
               aria-controls={open2 ? 'basic-menu' : undefined}
               aria-haspopup="true"
@@ -98,9 +101,13 @@ function NavBar_bfs() {
               }}
             >
               <MenuItem component={Link} to="/comdash" onClick={handleClose2}>Community Dashboard</MenuItem>
-            </Menu>            <Button component={Link} to="/login" className="btn btn-primary nav-btn-right nav-btn-space" variant="contained">Log In</Button>
-            <Button component={Link} to="/signup" className="btn btn-primary" variant="contained">Sign Up</Button>
+            </Menu>         
+            <Box paddingLeft="300px" paddingRight = "20px">  
+            <Button component={Link} to="/login" sx={{backgroundColor: "#D1B24C"}} className="btn btn-primary nav-btn-right nav-btn-space" variant="contained">Log In</Button>
+            </Box>
+            <Button component={Link} to="/signup" sx={{backgroundColor: "#D1B24C"}} className="btn btn-primary" variant="contained" >Sign Up</Button>
           </Box>
+           
 
 
         </Toolbar>

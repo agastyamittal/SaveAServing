@@ -21,10 +21,10 @@ function NavBarBusiness({name}) {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: '#333333', color: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={Image} alt='img' style={{ width: '70px', height: '70px' }} />
+          <img src={Image} alt='img' style={{ width: '45px', height: '45px', paddingRight: "10px" }} sx={{ backgroundColor: 'transparent' }} />
           <Typography
             variant="h6"
             noWrap
@@ -43,10 +43,10 @@ function NavBarBusiness({name}) {
             SaveAServing
           </Typography>
           <Box position={"absolute"} bottom={16} left={170}>
-            <Typography sx={{ fontSize: "18px" }}> for {name}</Typography>
+            <Typography sx={{ fontSize: "18px", paddingLeft: "55px" }}> for {name}</Typography>
           </Box>
           <Box margin="auto" alignItems="center" justifyContent="right" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>
-            <Button onClick={handleLogout} component={Link} to="/signup" color="#000000" style={{ borderRadius: 5, backgroundColor: "#024abf" }} variant="contained">Log Out</Button>
+            <Button sx={{backgroundColor: "#D1B24C"}} onClick={handleLogout} component={Link} to="/signup" color="#000000" style={{ borderRadius: 5 }} variant="contained">Log Out</Button>
           </Box>
 
         </Toolbar>

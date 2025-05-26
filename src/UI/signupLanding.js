@@ -1,26 +1,8 @@
-import NavBar from './mainnavbar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { FormControl } from '@mui/material';
-import { FormHelperText } from '@mui/material';
-import { FormLabel } from '@mui/material';
-import { Input } from '@mui/material';
-import { InputLabel } from '@mui/material';
+import NavBar from './mainnavbar';
 
 function signup(){
     return (
@@ -35,10 +17,10 @@ function signup(){
       justifyContent="space-between"
       alignItems="center"
       sx={{ width: '75%', padding: 1}} >
-        <Button component={Link} to="/bsignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">A Business</Button>
-        <Button component={Link} to="/doncensignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">A Donation Center</Button>
-        <Button component={Link} to="/volunteersignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">A Volunteer</Button>
-        <Button component={Link} to="/teamsignup" style={{color : "white", borderRadius: 5, backgroundColor: "#024abf"}} variant="contained">A Team</Button>
+        <Button sx={{backgroundColor: "#D1B24C"}}component={Link} to="/bsignup" style={{color : "white", borderRadius: 5}} variant="contained">A Business</Button>
+        <Button sx={{backgroundColor: "#D1B24C"}}component={Link} to="/doncensignup" style={{color : "white", borderRadius: 5}} variant="contained">A Donation Center</Button>
+        <Button sx={{backgroundColor: "#D1B24C"}}component={Link} to="/volunteersignup" style={{color : "white", borderRadius: 5}} variant="contained">A Volunteer</Button>
+        <Button sx={{backgroundColor: "#D1B24C"}}component={Link} to="/teamsignup" style={{color : "white", borderRadius: 5}} variant="contained">A Team</Button>
         </Box>
         </Box>
         </>

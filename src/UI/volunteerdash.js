@@ -85,10 +85,11 @@ function Volunteerdash() {
                 <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>
                     {volunteerName} Dashboard
                 </Typography>
+            <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3}}>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
-                        <Paper sx={{ p: 2 }}>
+                        <Paper sx={{ p: 2, minHeight: "266px", minWidth: "210px"}}>
                             <Typography variant="h6" sx={{ mb: 2 }}>
                                 Available Volunteer Opportunities
                             </Typography>
@@ -118,7 +119,7 @@ function Volunteerdash() {
                                             <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
                                                 <Button
                                                     variant="contained"
-                                                    color="primary"
+                                                    sx={{backgroundColor: "#A5C6B4"}}
                                                     onClick={() => handleAcknowledge(notif.vn_id, true)}
                                                 >
                                                     Accept
@@ -162,6 +163,7 @@ function Volunteerdash() {
                                             <Box sx={{ mt: 2 }}>
                                                 <Button
                                                     variant="outlined"
+                                                    color="error"
                                                     onClick={() => handleAcknowledge(notif.vn_id, false)}
                                                 >
                                                     Cancel Acceptance
@@ -173,6 +175,7 @@ function Volunteerdash() {
                         </Paper>
                     </Grid>
                 </Grid>
+                </Box>
             </Box>
         </>
     );
