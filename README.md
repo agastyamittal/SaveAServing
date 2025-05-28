@@ -1,6 +1,6 @@
 # SaveAServing - Agastya Mittal
 
-## Overview
+## Overview 
 SaveAServing is a web application designed to reduce food waste and fight hunger by connecting surplus food from businesses with donation centers and volunteers. The platform leverages AI-powered predictions to optimize food inventory, help businesses save money, and allow them to donate when they have surplus food. This application allows surplus food to reach those in need efficiently.
 
 ## Features / How it works
