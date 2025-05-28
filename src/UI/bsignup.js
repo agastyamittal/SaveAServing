@@ -18,7 +18,7 @@ function bsignup() {
                 <hr />
                 <SignUp tableName="business_info" />
                 <hr />
-  
+
             </div>
         </>
     );

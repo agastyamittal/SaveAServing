@@ -69,8 +69,9 @@ function Volunteerdash() {
         fetchNotifications();
     };
 
-    useEffect(() => {async function fetchData() {
-        const userEmail = localStorage.getItem('userEmail');
+    useEffect(() => {
+        async function fetchData() {
+            const userEmail = localStorage.getItem('userEmail');
             const { data: volunteerData, error2 } = await sas_db.from('volunteer_info').select('v_id, v_name').eq('v_email', userEmail).single();
             setVolunteerName(volunteerData.v_name);
         }
@@ -85,96 +86,96 @@ function Volunteerdash() {
                 <Typography variant="h4" sx={{ mb: 4, textAlign: 'center' }}>
                     {volunteerName} Dashboard
                 </Typography>
-            <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3}}>
+                <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3 }}>
 
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
-                        <Paper sx={{ p: 2, minHeight: "266px", minWidth: "210px"}}>
-                            <Typography variant="h6" sx={{ mb: 2 }}>
-                                Available Volunteer Opportunities
-                            </Typography>
-                            {notifications
-                                .filter(notif => !notif.vn_ack)
-                                .map((notif) => (
-                                    <Card key={notif.vn_id} sx={{ mb: 2 }}>
-                                        <CardContent>
-                                            <Typography variant="h6">
-                                                {notif.business_events.be_name}
-                                            </Typography>
-                                            <Typography>
-                                                Item: {notif.business_events.meals.m_meal_name}
-                                            </Typography>
-                                            <Typography>
-                                                Quantity: {notif.business_events.be_meal_quantity} servings
-                                            </Typography>
-                                            <Typography>
-                                                From: {notif.donation_center_info.d_name} - {notif.donation_center_info.d_zip_code} {notif.donation_center_info.d_house_number} {notif.donation_center_info.d_street_name}
-                                            </Typography>
-                                            <Typography>
-                                                To: {notif.business_info.b_name} - {notif.business_info.b_zip_code} {notif.business_info.b_house_number} {notif.business_info.b_street_name}
-                                            </Typography>
-                                            <Typography color="textSecondary">
-                                                Date: {new Date(notif.vn_date_time).toLocaleDateString()}
-                                            </Typography>
-                                            <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                                                <Button
-                                                    variant="contained"
-                                                    sx={{backgroundColor: "#A5C6B4"}}
-                                                    onClick={() => handleAcknowledge(notif.vn_id, true)}
-                                                >
-                                                    Accept
-                                                </Button>
-                                                <Button
-                                                    variant="outlined"
-                                                    color="error"
-                                                    onClick={() => handleAcknowledge(notif.vn_id, false)}
-                                                >
-                                                    Decline
-                                                </Button>
-                                            </Box>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                        </Paper>
-                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={6}>
+                            <Paper sx={{ p: 2, minHeight: "266px", minWidth: "210px" }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    Available Volunteer Opportunities
+                                </Typography>
+                                {notifications
+                                    .filter(notif => !notif.vn_ack)
+                                    .map((notif) => (
+                                        <Card key={notif.vn_id} sx={{ mb: 2 }}>
+                                            <CardContent>
+                                                <Typography variant="h6">
+                                                    {notif.business_events.be_name}
+                                                </Typography>
+                                                <Typography>
+                                                    Item: {notif.business_events.meals.m_meal_name}
+                                                </Typography>
+                                                <Typography>
+                                                    Quantity: {notif.business_events.be_meal_quantity} servings
+                                                </Typography>
+                                                <Typography>
+                                                    To: {notif.donation_center_info.d_name} - {notif.donation_center_info.d_zip_code} {notif.donation_center_info.d_house_number} {notif.donation_center_info.d_street_name}
+                                                </Typography>
+                                                <Typography>
+                                                    From: {notif.business_info.b_name} - {notif.business_info.b_zip_code} {notif.business_info.b_house_number} {notif.business_info.b_street_name}
+                                                </Typography>
+                                                <Typography color="textSecondary">
+                                                    Date: {new Date(notif.vn_date_time).toLocaleDateString()}
+                                                </Typography>
+                                                <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
+                                                    <Button
+                                                        variant="contained"
+                                                        sx={{ backgroundColor: "#A5C6B4" }}
+                                                        onClick={() => handleAcknowledge(notif.vn_id, true)}
+                                                    >
+                                                        Accept
+                                                    </Button>
+                                                    <Button
+                                                        variant="outlined"
+                                                        color="error"
+                                                        onClick={() => handleAcknowledge(notif.vn_id, false)}
+                                                    >
+                                                        Decline
+                                                    </Button>
+                                                </Box>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                            </Paper>
+                        </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <Paper sx={{ p: 2 }}>
-                            <Typography variant="h6" sx={{ mb: 2 }}>
-                                Accepted Opportunities
-                            </Typography>
-                            {notifications
-                                .filter(notif => notif.vn_ack)
-                                .map((notif) => (
-                                    <Card key={notif.vn_id} sx={{ mb: 2 }}>
-                                        <CardContent>
-                                            <Typography variant="h6">
-                                                {notif.business_events.be_name}
-                                            </Typography>
-                                            <Typography>
-                                                Item: {notif.business_events.meals.m_meal_name}
-                                            </Typography>
-                                            <Typography>
-                                                Quantity: {notif.business_events.be_meal_quantity} servings
-                                            </Typography>
-                                            <Typography color="textSecondary">
-                                                Date: {new Date(notif.vn_date_time).toLocaleDateString()}
-                                            </Typography>
-                                            <Box sx={{ mt: 2 }}>
-                                                <Button
-                                                    variant="outlined"
-                                                    color="error"
-                                                    onClick={() => handleAcknowledge(notif.vn_id, false)}
-                                                >
-                                                    Cancel Acceptance
-                                                </Button>
-                                            </Box>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                        </Paper>
+                        <Grid item xs={12} md={6}>
+                            <Paper sx={{ p: 2 }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    Accepted Opportunities
+                                </Typography>
+                                {notifications
+                                    .filter(notif => notif.vn_ack)
+                                    .map((notif) => (
+                                        <Card key={notif.vn_id} sx={{ mb: 2 }}>
+                                            <CardContent>
+                                                <Typography variant="h6">
+                                                    {notif.business_events.be_name}
+                                                </Typography>
+                                                <Typography>
+                                                    Item: {notif.business_events.meals.m_meal_name}
+                                                </Typography>
+                                                <Typography>
+                                                    Quantity: {notif.business_events.be_meal_quantity} servings
+                                                </Typography>
+                                                <Typography color="textSecondary">
+                                                    Date: {new Date(notif.vn_date_time).toLocaleDateString()}
+                                                </Typography>
+                                                <Box sx={{ mt: 2 }}>
+                                                    <Button
+                                                        variant="outlined"
+                                                        color="error"
+                                                        onClick={() => handleAcknowledge(notif.vn_id, false)}
+                                                    >
+                                                        Cancel Acceptance
+                                                    </Button>
+                                                </Box>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                            </Paper>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Box>
             </Box>
         </>

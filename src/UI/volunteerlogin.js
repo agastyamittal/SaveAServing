@@ -6,11 +6,11 @@ import './styles/global.css';
 import './styles/volunteer.css';
 import Box from '@mui/material/Box';
 
-function volunteerlogin(){
+function volunteerlogin() {
     return (
         <>
-    
-        <NavBar />
+
+            <NavBar />
             <Box marginTop="20px" alignItems="center" justifyContent="center" display="flex">
                 <Typography align="center" variant="h3" sx={{ fontWeight: "600" }} marginTop="50px">Login to your Volunteer Account</Typography>
             </Box>
@@ -19,7 +19,7 @@ function volunteerlogin(){
 
                 <AuthStatus />
                 <hr />
-                {}
+                { }
                 <hr />
                 <Login redirectRoute="/volunteerdash" />
             </div>

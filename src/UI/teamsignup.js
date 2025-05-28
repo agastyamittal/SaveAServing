@@ -7,7 +7,7 @@ function teamsignup() {
   return (
     <>
       <NavBar />
-      <Typography align = "center" variant = "h1" sx={{fontWeight: "400"}} marginTop = "80px">COMING SOON</Typography>
+      <Typography align="center" variant="h1" sx={{ fontWeight: "400" }} marginTop="80px">COMING SOON</Typography>
     </>
   );
 }

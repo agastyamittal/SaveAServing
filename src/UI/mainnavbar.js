@@ -36,7 +36,7 @@ function NavBar_bfs() {
     <AppBar position="static" style={{ backgroundColor: '#333333', color: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={Image} alt='img' style={{ width: '45px', height: '45px', paddingRight: "10px"}} />
+          <img src={Image} alt='img' style={{ width: '45px', height: '45px', paddingRight: "10px" }} />
           <Typography
             variant="h6"
             noWrap
@@ -54,12 +54,12 @@ function NavBar_bfs() {
           >
             SaveAServing
           </Typography>
-          <Box margin="auto" alignItems="center" justifyContent="center" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>            
-            <Button component={Link} to="/businesses" className="btn btn-text"  color= "inherit" variant="text">Business</Button>
-            <Button component={Link} to="/doncen" className="btn btn-text" color= "inherit" variant="text">Donation Center</Button>
+          <Box margin="auto" alignItems="center" justifyContent="center" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>
+            <Button component={Link} to="/businesses" className="btn btn-text" color="inherit" variant="text">Business</Button>
+            <Button component={Link} to="/doncen" className="btn btn-text" color="inherit" variant="text">Donation Center</Button>
             <Button
               className="btn btn-text"
-              color= "inherit"
+              color="inherit"
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
@@ -82,7 +82,7 @@ function NavBar_bfs() {
             </Menu>
             <Button
               className="btn btn-text"
-              color= "inherit"
+              color="inherit"
               id="basic-button"
               aria-controls={open2 ? 'basic-menu' : undefined}
               aria-haspopup="true"
@@ -101,13 +101,13 @@ function NavBar_bfs() {
               }}
             >
               <MenuItem component={Link} to="/comdash" onClick={handleClose2}>Community Dashboard</MenuItem>
-            </Menu>         
-            <Box paddingLeft="300px" paddingRight = "20px">  
-            <Button component={Link} to="/login" sx={{backgroundColor: "#D1B24C"}} className="btn btn-primary nav-btn-right nav-btn-space" variant="contained">Log In</Button>
+            </Menu>
+            <Box paddingLeft="300px" paddingRight="20px">
+              <Button component={Link} to="/login" sx={{ backgroundColor: "#D1B24C" }} className="btn btn-primary nav-btn-right nav-btn-space" variant="contained">Log In</Button>
             </Box>
-            <Button component={Link} to="/signup" sx={{backgroundColor: "#D1B24C"}} className="btn btn-primary" variant="contained" >Sign Up</Button>
+            <Button component={Link} to="/signup" sx={{ backgroundColor: "#D1B24C" }} className="btn btn-primary" variant="contained" >Sign Up</Button>
           </Box>
-           
+
 
 
         </Toolbar>

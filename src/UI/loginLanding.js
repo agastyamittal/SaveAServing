@@ -17,10 +17,10 @@ function loginLanding() {
           justifyContent="space-between"
           alignItems="center"
           sx={{ width: '75%', padding: 1 }} >
-          <Button sx={{backgroundColor: "#D1B24C"}} component={Link} to="/blogin" style={{ color: "white", borderRadius: 5}} variant="contained">A Business</Button>
-          <Button sx={{backgroundColor: "#D1B24C"}} component={Link} to="/doncenlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Donation Center</Button>
-          <Button sx={{backgroundColor: "#D1B24C"}} component={Link} to="/volunteerlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Volunteer</Button>
-          <Button sx={{backgroundColor: "#D1B24C"}} component={Link} to="/teamlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Team</Button>
+          <Button sx={{ backgroundColor: "#D1B24C" }} component={Link} to="/blogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Business</Button>
+          <Button sx={{ backgroundColor: "#D1B24C" }} component={Link} to="/doncenlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Donation Center</Button>
+          <Button sx={{ backgroundColor: "#D1B24C" }} component={Link} to="/volunteerlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Volunteer</Button>
+          <Button sx={{ backgroundColor: "#D1B24C" }} component={Link} to="/teamlogin" style={{ color: "white", borderRadius: 5 }} variant="contained">A Team</Button>
         </Box>
       </Box>
     </>

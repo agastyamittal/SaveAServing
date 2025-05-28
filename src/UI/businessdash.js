@@ -36,22 +36,22 @@ function Businessdash() {
   const [donationItem, setDonationItem] = useState('');
   const [donationQ, setDonationQ] = useState('');
   const [donationEventName, setDonationEventName] = useState('');
-  const [businessName, setBusinessName] = useState('');  const [forecast, setForecast] = useState([]);
+  const [businessName, setBusinessName] = useState(''); const [forecast, setForecast] = useState([]);
   const [forecastR, setForecastR] = useState([]);
   const [orderPredictionItem, setOrderPredictionItem] = useState('');
 
   const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
-const region = ""; 
-const accessKeyId = "";
-const secretAccessKey = "";
+  const region = "";
+  const accessKeyId = "";
+  const secretAccessKey = "";
 
-const sesClient = new SESClient({
-  region: region,
-  credentials: {
-    accessKeyId: accessKeyId,
-    secretAccessKey: secretAccessKey,
-  },
-});
+  const sesClient = new SESClient({
+    region: region,
+    credentials: {
+      accessKeyId: accessKeyId,
+      secretAccessKey: secretAccessKey,
+    },
+  });
 
   const startMenuItems = async () => {
     const userEmail = localStorage.getItem('userEmail');
@@ -89,7 +89,7 @@ const sesClient = new SESClient({
     }
   };
 
-  const handleAddToNotifList = () => { 
+  const handleAddToNotifList = () => {
     if (notifItem && notifQ) {
       const newNotif = {
         item: notifItem,
@@ -170,6 +170,7 @@ const sesClient = new SESClient({
     }
 
     setOrderList([]);
+    fetchChartData();
   };
 
   const handleNotifSubmit = async () => {
@@ -204,34 +205,34 @@ const sesClient = new SESClient({
 
     setOrderList([]);
     async function sendEmail() {
-  console.log(
-    "sendEmail() called"
-  );
-  const params = {
-    Source: "",
-    Destination: {
-      ToAddresses: [""],
-    },
-    Message: {
-      Subject: {
-        Data: "",
-      },
-      Body: {
-        Text: {
-          Data: "",
+      console.log(
+        "sendEmail() called"
+      );
+      const params = {
+        Source: "",
+        Destination: {
+          ToAddresses: [""],
         },
-      },
-    },
-  };
+        Message: {
+          Subject: {
+            Data: "",
+          },
+          Body: {
+            Text: {
+              Data: "",
+            },
+          },
+        },
+      };
 
-  const command = new SendEmailCommand(params);
-  try {
-    const response = await sesClient.send(command);
-    console.log("Email sent successfully:", response);
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
-}
+      const command = new SendEmailCommand(params);
+      try {
+        const response = await sesClient.send(command);
+        console.log("Email sent successfully:", response);
+      } catch (error) {
+        console.error("Error sending email:", error);
+      }
+    }
   };
 
 
@@ -251,7 +252,7 @@ const sesClient = new SESClient({
       console.log(orderData);
       const formattedData = orderData.reduce((acc, order) => {
         const date = new Date(order.o_order_date_time);
-        const month = date.toISOString().slice(0, 7); 
+        const month = date.toISOString().slice(0, 7);
 
         if (!acc[order.meals.m_meal_name]) {
           acc[order.meals.m_meal_name] = {};
@@ -271,88 +272,87 @@ const sesClient = new SESClient({
   };
 
 
-useEffect(() => {
-  sendEmail();
+  useEffect(() => {
 
-  const fetchData = async () => { 
-    console.log("Fetching data...");
-    const userEmail = localStorage.getItem('userEmail');
-    const { data: businessData, error2 } = await sas_db.from('business_info').select('b_id, b_name').eq('b_email', userEmail).single();
-    setBusinessName(businessData.b_name);
-  }
-  fetchData();
-  fetchChartData();
-  startMenuItems();
-}, []);
-
-
-const sendOrderData = async (orderPredItem) => {
-  try {
-    console.log('sendOrderData called with item:', orderPredItem);
-    if (!orderPredItem) {
-      console.log('No item selected');
-      return;
+    const fetchData = async () => {
+      console.log("Fetching data...");
+      const userEmail = localStorage.getItem('userEmail');
+      const { data: businessData, error2 } = await sas_db.from('business_info').select('b_id, b_name').eq('b_email', userEmail).single();
+      setBusinessName(businessData.b_name);
     }
+    fetchData();
+    fetchChartData();
+    startMenuItems();
+  }, []);
 
-    const userEmail = localStorage.getItem('userEmail');
-    console.log('Fetching business data for email:', userEmail);
-    const { data: businessData, error: businessError } = await sas_db.from('business_info').select('b_id, b_name').eq('b_email', userEmail).single();
-    
-    if (businessError) {
-      console.error('Error fetching business data:', businessError);
-      return;
-    }
 
-    const { data: mealId, error: mealError } = await sas_db.from("meals").select("m_id").eq("b_id", businessData.b_id).eq("m_meal_name", orderPredItem).single();
-    
-    if (mealError || !mealId) {
-      console.error('Error fetching meal data:', mealError);
-      console.log('orderPredItem:', orderPredItem);
-      console.log('businessId:', businessData.b_id);
-      return;
-    }    const requestData = {
+  const sendOrderData = async (orderPredItem) => {
+    try {
+      console.log('sendOrderData called with item:', orderPredItem);
+      if (!orderPredItem) {
+        console.log('No item selected');
+        return;
+      }
+
+      const userEmail = localStorage.getItem('userEmail');
+      console.log('Fetching business data for email:', userEmail);
+      const { data: businessData, error: businessError } = await sas_db.from('business_info').select('b_id, b_name').eq('b_email', userEmail).single();
+
+      if (businessError) {
+        console.error('Error fetching business data:', businessError);
+        return;
+      }
+
+      const { data: mealId, error: mealError } = await sas_db.from("meals").select("m_id").eq("b_id", businessData.b_id).eq("m_meal_name", orderPredItem).single();
+
+      if (mealError || !mealId) {
+        console.error('Error fetching meal data:', mealError);
+        console.log('orderPredItem:', orderPredItem);
+        console.log('businessId:', businessData.b_id);
+        return;
+      } const requestData = {
         user_id: businessData.b_id.toString(),
         meal_id: mealId.m_id.toString()
-    };
-    
-    console.log('Sending prediction request with data:', requestData);
-    const response = await fetch("http://127.0.0.1:8000/forecast", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
+      };
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+      console.log('Sending prediction request with data:', requestData);
+      const response = await fetch("http://127.0.0.1:8000/forecast", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
 
-    const data = await response.json();
-    console.log('Received prediction response:', data);
-    
-    if (!Array.isArray(data)) {
-      console.error('Expected array response from forecast API, got:', typeof data);
-      console.log( data);
-      return;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Received prediction response:', data);
+
+      if (!Array.isArray(data)) {
+        console.error('Expected array response from forecast API, got:', typeof data);
+        console.log(data);
+        return;
+      }
+
+      setForecast(data);
+      const newForecastR = data.map(item => item.Forecast);
+      console.log('Processed forecast data:', newForecastR);
+      setForecastR(newForecastR);
+    } catch (error) {
+      console.error('Error in sendOrderData:', error);
     }
-    
-    setForecast(data);
-    const newForecastR = data.map(item => item.Forecast);
-    console.log('Processed forecast data:', newForecastR);
-    setForecastR(newForecastR);
-  } catch (error) {
-    console.error('Error in sendOrderData:', error);
-  }
-};
+  };
 
   return (
     <>
       <NavBarBusiness name="businesses" />
       <div className="dashboard-container">
-        <Typography 
-          variant="h3" 
-          sx={{ 
+        <Typography
+          variant="h3"
+          sx={{
             paddingTop: "35px",
             fontWeight: "600",
             textAlign: "center",
@@ -361,68 +361,74 @@ const sendOrderData = async (orderPredItem) => {
         >
           {businessName} Dashboard
         </Typography>
-            <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2}}>
+        <Box marginTop="40px" alignItems="center" justifyContent="center" display="flex" sx={{ width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2 }}>
 
-        <div className="dashboard-card">   
-                 
-          <Typography 
-            variant="h5" 
-            sx={{ 
-              fontWeight: "600",
-              marginBottom: "1.5rem",
-              textAlign: "center"
-            }}
-          >
-            Order Prediction
-          </Typography>
-          <FormControl fullWidth sx={{ mb: 2, minWidth: "1000px" }}>
-            <InputLabel>Select Menu Item for Prediction</InputLabel>
-            <Select
-              value={orderPredictionItem}
-              onChange={(e) => {
-                setOrderPredictionItem(e.target.value);
-                sendOrderData(e.target.value);
-              }}
-              label="Select Menu Item for Prediction"
-            >
-              {menuItems.map((item, index) => (
-                <MenuItem key={index} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          {forecast.length > 0 && (
-            <Box sx={{minWidth: "1000px"}}>
-            <LineChart
-              xAxis={[{ data: [1, 2, 3, 4, 5, 6] }]}
-              series={[
-                {
-                  data: forecastR,
-                },
-              ]}
-              height={300}
+          <div className="dashboard-card">
+
+            <Typography
+              variant="h5"
               sx={{
-                '.MuiLineChart-root': {
-                  backgroundColor: 'var(--card-background)',
-                  borderRadius: '12px',
-                  padding: '16px'
-                }
+                fontWeight: "600",
+                marginBottom: "1.5rem",
+                textAlign: "center"
               }}
-            />
-            </Box>
-          )}
-          
-        </div>
-       </Box>
+            >
+              Order Prediction
+            </Typography>
+            <FormControl fullWidth sx={{ mb: 2, minWidth: "1000px" }}>
+              <InputLabel>Select Menu Item for Prediction</InputLabel>
+              <Select
+                value={orderPredictionItem}
+                onChange={(e) => {
+                  setOrderPredictionItem(e.target.value);
+                  sendOrderData(e.target.value);
+                }}
+                label="Select Menu Item for Prediction"
+              >
+                {menuItems.map((item, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {forecast.length > 0 && (
+              <Box sx={{ minWidth: "1000px" }}>
+                <LineChart
+                  xAxis={[{
+                    scaleType: 'linear',
+                    data: [1, 2, 3, 4, 5, 6],
+                    label: 'Months ahead',
+                    tickLabelInterval: (value) => value === 1 || value === 2 || value === 3 || value === 4 || value === 5 || value === 6,
+                  }]}
+
+                  series={[
+                    {
+                      data: forecastR,
+                    },
+                  ]}
+                  height={300}
+                  sx={{
+                    '.MuiLineChart-root': {
+                      backgroundColor: 'var(--card-background)',
+                      borderRadius: '12px',
+                      padding: '16px'
+                    }
+                  }}
+                />
+              </Box>
+            )}
+
+          </div>
+        </Box>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 3 }}>
-          <Button variant="contained"sx={{backgroundColor: "#D1B24C"}} onClick={handleEditMenuOpenDialog}>
+          <Button variant="contained" sx={{ backgroundColor: "#D1B24C" }} onClick={handleEditMenuOpenDialog}>
             Edit Menu Items
           </Button>
-          <Button variant="contained" sx={{backgroundColor: "#D1B24C"}}onClick={handleOpenAddOrderDialog}>
+          <Button variant="contained" sx={{ backgroundColor: "#D1B24C" }} onClick={handleOpenAddOrderDialog}>
             Add Orders
           </Button>
-          <Button variant="contained" sx={{backgroundColor: "#D1B24C"}}onClick={handleOpenStartDonationDialog}>
+          <Button variant="contained" sx={{ backgroundColor: "#D1B24C" }} onClick={handleOpenStartDonationDialog}>
             Notify Donation Center
           </Button>
         </Box>
@@ -460,18 +466,18 @@ const sendOrderData = async (orderPredItem) => {
               <Button
                 variant="contained"
                 onClick={handleAddMenuItem}
-                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C"}}
+                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C" }}
               >
                 Add Item
               </Button>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button sx={{color: "#D1B24C"}} onClick={() => {
+            <Button sx={{ color: "#D1B24C" }} onClick={() => {
               handleCloseEditMenuDialog(); setNewMenuItemsTemp([]);
               setNewMenuItems('');
             }}>Cancel</Button>
-            <Button sx={{backgroundColor: "#D1B24C"}}
+            <Button sx={{ backgroundColor: "#D1B24C" }}
               onClick={() => {
                 handleConfirmEdits();
                 handleCloseEditMenuDialog();
@@ -517,18 +523,18 @@ const sendOrderData = async (orderPredItem) => {
               <Button
                 variant="contained"
                 onClick={handleAddToOrderList}
-                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C"}}
+                sx={{ minWidth: '120px', maxHeight: '55px', backgroundColor: "#D1B24C" }}
               >
                 Add Order
               </Button>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button sx={{color: "#D1B24C"}} onClick={handleCloseAddOrderDialog}>Cancel</Button>
-            <Button sx={{backgroundColor: "#D1B24C"}}
+            <Button sx={{ color: "#D1B24C" }} onClick={handleCloseAddOrderDialog}>Cancel</Button>
+            <Button sx={{ backgroundColor: "#D1B24C" }}
               onClick={() => {
                 handleOrderSubmit();
-                fetchChartData();
+
                 handleCloseAddOrderDialog();
 
               }}
@@ -544,18 +550,18 @@ const sendOrderData = async (orderPredItem) => {
         <Dialog open={openStartDonationDialog} onClose={handleCloseStartDonationDialog} maxWidth="sm" fullWidth>
           <DialogTitle>Start Donation Event</DialogTitle>
           <DialogContent>
-<Box paddingTop="15px">
-            <TextField
-            
-              fullWidth
-              label="Donation Event Name"
-              id="donationEventName"
-              value={donationEventName}
-              onChange={(e) => setDonationEventName(e.target.value)}
-              variant="outlined"
-              type="text"
-            />
-</Box>
+            <Box paddingTop="15px">
+              <TextField
+
+                fullWidth
+                label="Donation Event Name"
+                id="donationEventName"
+                value={donationEventName}
+                onChange={(e) => setDonationEventName(e.target.value)}
+                variant="outlined"
+                type="text"
+              />
+            </Box>
             <FormControl fullWidth sx={{ mb: 2, mt: 1 }}>
               <InputLabel>Select Menu Item</InputLabel>
               <Select
@@ -614,7 +620,7 @@ const sendOrderData = async (orderPredItem) => {
 
           </DialogContent>
           <DialogActions>
-            <Button sx={{color: "#D1B24C"}} onClick={handleCloseStartDonationDialog}>Cancel</Button>
+            <Button sx={{ color: "#D1B24C" }} onClick={handleCloseStartDonationDialog}>Cancel</Button>
             <Button
               onClick={() => {
                 setDonationList([...donationList, { item: donationItem, quantity: parseInt(donationQ) }]);
@@ -625,7 +631,7 @@ const sendOrderData = async (orderPredItem) => {
                 setDonationEventName('');
               }}
               variant="contained"
-              sx={{backgroundColor: "#D1B24C"}}
+              sx={{ backgroundColor: "#D1B24C" }}
               disabled={selectedCenters.length === 0}
             >
               Notify Donation Centers
@@ -634,48 +640,48 @@ const sendOrderData = async (orderPredItem) => {
         </Dialog>
 
 
- <div className="dashboard-card" style={{ marginTop: '1.5rem' }}>
-      <Box marginTop="25px" marginBottom="30px" alignItems="center" justifyContent="center" display="flex" sx={{flexDirection:"column", width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2}}>
+        <div className="dashboard-card" style={{ marginTop: '1.5rem' }}>
+          <Box marginTop="25px" marginBottom="30px" alignItems="center" justifyContent="center" display="flex" sx={{ flexDirection: "column", width: "1200px", mx: "auto", px: 3, p: 3, bgcolor: '#F8F8F8', borderRadius: 2 }}>
 
-        <Box sx={{
-          p: 3,
-          m: 2,
-          maxWidth: 800,
-          mx: 'auto',
-          marginBottom: '1px'
-        }}>
-         <Typography 
-            variant="h5" 
-            sx={{ 
-              fontWeight: "600",
-              marginBottom: "1.5rem",
-              textAlign: "center"
-            }}
-          >Order History Per Menu Item</Typography>
+            <Box sx={{
+              p: 3,
+              m: 2,
+              maxWidth: 800,
+              mx: 'auto',
+              marginBottom: '1px'
+            }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: "600",
+                  marginBottom: "1.5rem",
+                  textAlign: "center"
+                }}
+              >Order History Per Menu Item</Typography>
 
 
-        </Box>
-      
-        {Object.keys(chartData).length > 0 && (
-          <Box sx={{minWidth: "1000px"}}>
-          <LineChart
-            xAxis={[{
-              data: [...new Set(Object.values(chartData).flatMap(item => Object.keys(item)))].sort(),
-              scaleType: 'band'
-            }]}
-            series={Object.entries(chartData).map(([mealName, monthData]) => ({
-              data: [...new Set(Object.values(chartData).flatMap(item => Object.keys(item)))]
-                .sort()
-                .map(month => monthData[month] || 0),
-              label: `${mealName}`
+            </Box>
 
-            }))}
-            height={300}
-          />
+            {Object.keys(chartData).length > 0 && (
+              <Box sx={{ minWidth: "1000px" }}>
+                <LineChart
+                  xAxis={[{
+                    data: [...new Set(Object.values(chartData).flatMap(item => Object.keys(item)))].sort(),
+                    scaleType: 'band'
+                  }]}
+                  series={Object.entries(chartData).map(([mealName, monthData]) => ({
+                    data: [...new Set(Object.values(chartData).flatMap(item => Object.keys(item)))]
+                      .sort()
+                      .map(month => monthData[month] || 0),
+                    label: `${mealName}`
+
+                  }))}
+                  height={300}
+                />
+              </Box>
+            )}
           </Box>
-        )}
-        </Box>
-   </div>
+        </div>
       </div>
 
 

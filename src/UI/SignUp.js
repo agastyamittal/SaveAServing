@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { sas_db } from '../DB/dbClient'
 import { useNavigate } from 'react-router-dom'
 
-function SignUp({tableName}) {
+function SignUp({ tableName }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [zip, setZip] = useState('')
@@ -20,13 +20,13 @@ function SignUp({tableName}) {
       email,
       password,
     })
-    if (error){ 
+    if (error) {
       setMessage(error.message)
     }
-    else{
-      
+    else {
 
-      if(tableName === "business_info"){
+
+      if (tableName === "business_info") {
         const profileData = {
           b_email: email,
           b_name: name,
@@ -35,10 +35,10 @@ function SignUp({tableName}) {
           b_street_name: street,
           b_phone: phone,
         }
-          const { data, error } = await sas_db.from(tableName).insert([profileData])
-        
+        const { data, error } = await sas_db.from(tableName).insert([profileData])
+
       }
-      else if(tableName === "donation_center_info"){
+      else if (tableName === "donation_center_info") {
         const profileData = {
           d_email: email,
           d_name: name,
@@ -47,10 +47,10 @@ function SignUp({tableName}) {
           d_street_name: street,
           d_phone: phone,
         }
-          const { data, error } = await sas_db.from(tableName).insert([profileData])
-        
+        const { data, error } = await sas_db.from(tableName).insert([profileData])
+
       }
-      else if(tableName === "volunteer_info"){
+      else if (tableName === "volunteer_info") {
         const profileData = {
           v_email: email,
           v_name: name,
@@ -62,13 +62,13 @@ function SignUp({tableName}) {
         const { data, error } = await sas_db.from(tableName).insert([profileData])
       }
       localStorage.setItem('userEmail', email)
-      if(tableName === "business_info"){
+      if (tableName === "business_info") {
         navigate('/bdash')
       }
-      else if(tableName === "donation_center_info"){
+      else if (tableName === "donation_center_info") {
         navigate('/doncendash')
       }
-      else if(tableName === "volunteer_info"){
+      else if (tableName === "volunteer_info") {
         navigate('/volunteerdash')
       }
     }

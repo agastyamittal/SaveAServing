@@ -16,7 +16,7 @@ function blogin() {
 
                 <AuthStatus />
                 <hr />
-                {}
+                { }
                 <hr />
                 <Login redirectRoute="/bdash" />
             </div>

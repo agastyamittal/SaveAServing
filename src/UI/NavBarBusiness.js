@@ -11,7 +11,7 @@ import { sas_db } from '../DB/dbClient';
 import Image from './SaveAServingLogo.png'
 
 
-function NavBarBusiness({name}) {
+function NavBarBusiness({ name }) {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const handleLogout = async () => {
@@ -46,7 +46,7 @@ function NavBarBusiness({name}) {
             <Typography sx={{ fontSize: "18px", paddingLeft: "55px" }}> for {name}</Typography>
           </Box>
           <Box margin="auto" alignItems="center" justifyContent="right" display="flex" sx={{ flexGrow: 1, display: 'flex' }}>
-            <Button sx={{backgroundColor: "#D1B24C"}} onClick={handleLogout} component={Link} to="/signup" color="#000000" style={{ borderRadius: 5 }} variant="contained">Log Out</Button>
+            <Button sx={{ backgroundColor: "#D1B24C" }} onClick={handleLogout} component={Link} to="/signup" color="#000000" style={{ borderRadius: 5 }} variant="contained">Log Out</Button>
           </Box>
 
         </Toolbar>
